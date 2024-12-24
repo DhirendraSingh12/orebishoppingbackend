@@ -1,4 +1,4 @@
-const PerksModel = require("../models/ CategoryModel");
+const PerksModel = require("../models/CategoryModel");
 exports.createCategory = async (req, res) => {
   try {
     const { categoryName, parentId } = req.body;

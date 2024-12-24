@@ -5,7 +5,7 @@ const BrandController = require("../controllers/BrandController");
 const EmployeeController = require("../controllers/EmployeeController");
 const LoginController = require("../controllers/LoginController");
 const router = express.Router();
-const  CategoryCotroller = require('../controllers/ CategoryCotroller')
+const  CategoryCotroller = require('../controllers/CategoryCotroller')
 const ContactController = require('../controllers/ContactController')
 // Employee Rotures Controller
 router.post("/employee", EmployeeController.CreateEmployee);
