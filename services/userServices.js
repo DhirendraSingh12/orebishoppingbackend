@@ -41,27 +41,27 @@ exports.createUser = async (userData) => {
 };
 
 
-exports.findUserByEmployeeId = async (employeeId) => {
+exports.findUserByEmployeeId = async (userId) => {
   try {
-    return await User.findOne({ employeeId }); 
+    return await User.findOne({ userId }); 
   } catch (error) {
     console.error("Error in findUserByEmployeeId:", error);
     throw new Error(error.message || "Database error occurred");
   }
 };
 
-exports.deleteUserByEmployeeId = async (employeeId) => {
+exports.deleteUserByEmployeeId = async (userId) => {
   try {
-    return await User.deleteOne({ employeeId }); 
+    return await User.deleteOne({ userId }); 
   } catch (error) {
     console.error("Error deleting user by employeeId:", error);
     throw new Error(error.message || "Error deleting user");
   }
 };
 
-exports.authenticateUser = async (employeeId, password) => {
+exports.authenticateUser = async (email, password) => {
   try {
-    const user = await User.findOne({ employeeId });
+    const user = await User.findOne({ email });
     if (!user) {
       throw new Error("User not found");
     }    const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -70,7 +70,7 @@ exports.authenticateUser = async (employeeId, password) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ employeeId }, JWT_SECRET, { expiresIn: "2h" });
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "2h" });
 
     // Return user data and token
     return { user, token };
@@ -80,9 +80,9 @@ exports.authenticateUser = async (employeeId, password) => {
 };
 
 
-exports.updateUser = async (employeeId, userDetails) => {
+exports.updateUser = async (userId, userDetails) => {
   try {
-    return await User.findOneAndUpdate({ employeeId }, userDetails, { new: true });
+    return await User.findOneAndUpdate({ userId }, userDetails, { new: true });
   } catch (error) {
     throw new Error(error.message || "Error updating user");
   }
